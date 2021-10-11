@@ -11,7 +11,7 @@ function App() {
   const [isLoading, setLoading] = useState(true);
 
   useEffect(()=>{
-    let url = "http://localhost:8080/";
+    let url = "https://superherobackend12.herokuapp.com/";
     fetch(url).then((response)=>{
         response.json().then((result)=>{
             console.log(result);
