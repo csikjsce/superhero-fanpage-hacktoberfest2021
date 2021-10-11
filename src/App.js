@@ -1,42 +1,70 @@
 import './App.css';
 import logo from './assets/logo2.png';
 import iron_man from './assets/iron-man.jpg';
-function App() {
-  return (
-    <div className="background">
-      <img src={logo} className="logo"></img>
-      <div className="superhero_container">
-        <div className="photo">
-          <img src={iron_man} className="superhero_photo"></img>
-        </div>
-        <div className="info_division">
-        <div className="Author_name"> - 
-            Krutika Bhatt
-          </div>
-          <div className="title_name">Iron Man</div>
-          <div className="description">A founding member and leader of the Avengers and a genius CEO of stark industries!</div>
-          <div className="powers_arrays">
-            <div className="power">
-              Tech Suit
-            </div>
-            <div className="power">
-              Genius
-            </div>
-            <div className="power">
-              Iron Armor
-            </div>
-            <div className="power">
-              Avenger
-            </div>
-          </div>
+import { useEffect,useState } from 'react';
+import {Table,Spinner} from 'react-bootstrap';
+import spinner from './assets/Spinner.gif';
 
-          <div>
-            <p className="quotes_complete">" Everyone Wants A Happy Ending, Right? But It Doesn't Always Roll That Way "</p>
+function App() {
+
+  const [data, setData] = useState(null);
+  const [isLoading, setLoading] = useState(true);
+
+  useEffect(()=>{
+    let url = "http://localhost:8080/";
+    fetch(url).then((response)=>{
+        response.json().then((result)=>{
+            console.log(result);
+            setData(result);
+            setLoading(false);
+        })
+    }).catch(err=>{
+        console.log(err);
+    })
+  },[]);
+
+  return (
+    <>
+    {
+    isLoading?
+    (
+      <div className="background">
+        <img src={logo} className="logo"></img>
+        <img src={spinner} className="spinner"></img>
+      </div>
+      ):(
+        <div className="background">
+          <img src={logo} className="logo"></img>
+          {data.map((hero) =>(
+            <div className="superhero_container">
+            <div className="photo">
+              <img src={hero.image} className="superhero_photo"></img>
+            </div>
+            <div className="info_division">
+            <div className="Author_name"> - 
+                {hero.author}
+              </div>
+              <div className="title_name">{hero.title}</div>
+              <div className="description">{hero.description}</div>
+              <div className="powers_arrays">
+                {hero.power.map((powers) =>(
+                  <div className="power" style={{color:hero.text_color,backgroundColor:hero.widget_color}}>
+                    {powers}
+                  </div>
+                ))}
+              </div>
+
+              <div>
+                <p className="quotes_complete">" {hero.dialogue} "</p>
+              </div>
+            </div>
           </div>
+          ))}
           
         </div>
-      </div>
-    </div>
+      )
+    }
+    </>
   );
 }
 
