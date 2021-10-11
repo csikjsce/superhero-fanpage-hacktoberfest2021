@@ -12,9 +12,9 @@
 
 .background{
   background-image: url('./assets//superpower_background.jpg');
-  /* height: 100%;  */
+  height: 100%; 
   width: 100vw;
-  height: 100vh;
+  /* height: 100vh; */
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -43,7 +43,7 @@
 }
 
 .photo{
-  width:25%;
+  display :block
 }
 .superhero_photo{
   margin-left: 20px;
@@ -59,6 +59,8 @@
 
 .info_division{
   display: block;
+  margin-left: 40px;
+  margin-right: 10px;
 }
 
 .title_name{
@@ -87,6 +89,16 @@
   border-radius :5px;
   margin-right: 25px;
   margin-top :25px;
+}
+
+.spinner{
+  justify-self: center;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  height :100px;
+  width :100px;
+  padding-top: 100px;
 }
 
 
